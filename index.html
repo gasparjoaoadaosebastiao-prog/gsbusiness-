@@ -208,5 +208,8 @@ section table{font-size:13px}
 </div></section>
 <section class="dark"><div class="sh"><h3>Instalar no telemóvel</h3></div>
 <p style="margin:0;font-size:14px;color:#4b5563">No Chrome, abra o menu ⋮ e escolha <b>Instalar aplicação</b> (ou <b>Adicionar ao ecrã inicial</b>). Depois da primeira abertura com internet, a aplicação funciona sem ligação e atualiza-se sozinha sempre que houver internet.</p></section>
+<section class="dark"><div class="sh"><h3>Guia prático</h3></div>
+<div class="tiles"><button class="tile" onclick="baixarGuia()"><span class="ti"><svg class='ic'><use href='#i-doc'/></svg></span><span class="sep"></span><span class="tx">Descarregar o guia (PDF)<small>20 páginas · passo a passo com imagens</small></span><span class="chev"><svg class='ic'><path d='M12 4v11M7 11l5 5 5-5M5 20h14'/></svg></span></button></div></section>
+<script>function baixarGuia(){var a=document.createElement("a");a.href="Guia_Pratico_GS_Business.pdf";a.download="Guia_Pratico_GS_Business.pdf";document.body.appendChild(a);a.click();a.remove()}</script>
 <script>if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});</script>
 </body></html>
