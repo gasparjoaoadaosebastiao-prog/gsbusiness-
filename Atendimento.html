@@ -260,7 +260,7 @@ section table{font-size:13px}
     <option value="Bebida">Bebida</option><option value="Petisco">Petisco</option>
   </select>
   <div class="combo sbox"><svg class='ic'><use href='#i-search'/></svg>
-    <input id="prodBusca" placeholder="Selecione o produto" autocomplete="off" onfocus="this.select();filtrarProd()" oninput="digitarProd()">
+    <input id="prodBusca" placeholder="Selecione o produto" autocomplete="off" onfocus="this.select();filtrarProd()" oninput="digitarProd()" onkeydown="if(event.key==='Enter')enterProd()">
     <input type="hidden" id="produtoSelectAtendimento">
     <div id="prodLista" class="combo-l hidden"></div>
   </div>
@@ -431,9 +431,14 @@ function atualizarProdutosAtendimento(){
 function filtrarProd(){
   const cat=$("categoriaAtendimento").value,box=$("prodLista");
   const q=$("produtoSelectAtendimento").value?"":nz($("prodBusca").value.trim());
-  const l=cfg.produtos.filter(p=>(!cat||p.categoria===cat)&&(!q||nz(p.n).includes(q))).sort(porNome);
+  const l=cfg.produtos.filter(p=>(!cat||p.categoria===cat)&&(!q||nz(p.n).includes(q)||String(p.codigo||"").toLowerCase().includes(q))).sort(porNome);
   box.innerHTML=l.map(p=>`<div onclick="escolherProd(${p.id})"><b>${esc(p.n)}</b>${p.categoria==="Bebida"?` <small>(Estoque: ${p.e})</small>${emReserva(p)?` <small style="color:#b42318">– reserva</small>`:""}`:""}${cat?"":` <small>– ${p.categoria}</small>`}</div>`).join("")||`<div style="color:#6b7280;cursor:default">Nenhum produto encontrado</div>`;
   box.classList.remove("hidden");
+}
+function enterProd(){
+  const v=$("prodBusca").value.trim();
+  const p=cfg.produtos.find(x=>x.codigo&&x.codigo===v);
+  if(p){escolherProd(p.id);$("qtdVenda").focus()}
 }
 function digitarProd(){$("produtoSelectAtendimento").value="";filtrarProd()}
 function escolherProd(id){
